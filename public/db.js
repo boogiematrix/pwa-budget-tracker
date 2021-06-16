@@ -6,10 +6,10 @@ request.onupgradeneeded = function (event) {
 
     db = event.target.result;
 
-    const BudgetStore = db.createObjectStore("BudgetStore", {
+    const budgetStore = db.createObjectStore("budgetStore", {
         autoIncrement: true
     });
-
+    budgetStore.createIndex("budgetIndex", "budgetIndex");
 };
 
 request.onsuccess = function (event) {
@@ -27,12 +27,15 @@ request.onerror = function (event) {
 
 function saveRecord(record) {
     db = request.result;
-    const transaction = db.transaction(["BudgetStore"], "readwrite");
-    const BudgetStore = transaction.objectStore("BudgetStore");
+    const transaction = db.transaction(["budgetStore"], "readwrite");
+    const budgetStore = transaction.objectStore("budgetStore");
 
-    BudgetStore.add(record);
+    budgetStore.add(record);
 };
 
 function checkDatabase() {
-
+    db = request.result;
+    const transaction = db.transaction(["BudgetStore"], "readwrite");
+    const budgetStore = transaction.objectStore("BudgetStore");
+  //const budgetIndex = budgetStore.createIndex("budgetIndex", "budgetIndex")
 };
