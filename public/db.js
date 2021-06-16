@@ -24,3 +24,15 @@ request.onerror = function (event) {
     const msg = event.target.result
     console.log(msg.errorCode)
 };
+
+function saveRecord(record) {
+    db = request.result;
+    const transaction = db.transaction(["BudgetStore"], "readwrite");
+    const BudgetStore = transaction.objectStore("BudgetStore");
+
+    BudgetStore.add(record);
+};
+
+function checkDatabase() {
+
+};
