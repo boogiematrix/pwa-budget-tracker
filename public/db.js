@@ -39,7 +39,7 @@ function checkDatabase() {
     const budgetStore = transaction.objectStore("budgetStore");
   //const budgetIndex = budgetStore.createIndex("budgetIndex", "budgetIndex")
     const getAll = budgetStore.getAll()
-
+    console.log(getAll)
     getAll.onsuccess = function () {
         if (getAll.result.length > 0) {
             fetch('/api/transaction/bulk', {
@@ -56,6 +56,7 @@ function checkDatabase() {
                     const transaction = db.transaction(["budgetStore"], "readwrite");
                     const budgetStore = transaction.objectStore("budgetStore");
                     budgetStore.clear()
+                    window.location.reload()
                 });
         }
     };
