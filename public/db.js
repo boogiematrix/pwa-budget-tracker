@@ -35,7 +35,28 @@ function saveRecord(record) {
 
 function checkDatabase() {
     db = request.result;
-    const transaction = db.transaction(["BudgetStore"], "readwrite");
-    const budgetStore = transaction.objectStore("BudgetStore");
+    const transaction = db.transaction(["budgetStore"], "readwrite");
+    const budgetStore = transaction.objectStore("budgetStore");
   //const budgetIndex = budgetStore.createIndex("budgetIndex", "budgetIndex")
+    const getAll = budgetStore.getAll()
+
+    getAll.onsuccess = function () {
+        if (getAll.result.length > 0) {
+            fetch('/api/transaction/bulk', {
+                method: 'POST',
+                body: JSON.stringify(getAll.result),
+                headers: {
+                    Accept: 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then((response) => response.json())
+                .then(() => {
+                    db = request.result;
+                    const transaction = db.transaction(["budgetStore"], "readwrite");
+                    const budgetStore = transaction.objectStore("budgetStore");
+                    budgetStore.clear()
+                });
+        }
+    };
 };
