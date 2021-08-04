@@ -1,6 +1,6 @@
 # pwa-budget-tracker
   ## Description
-This is a budget tracking application that allows for offline access and functionality.The user can add expenses and deposits to their budget with or without a connection. When entering transactions offline, they should populate the total when brought back online.
+This is a budget tracking application that allows for offline access and functionality.The user can add expenses and deposits to their budget with or without a connection. When entering transactions offline, they should populate the total when brought back online. It mainly depends on the browser's built in caching capabilities for offline use, as well as mongoose when online.
    
   <br/>
 
